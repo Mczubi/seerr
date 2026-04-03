@@ -4,7 +4,6 @@ import { User } from '@server/entity/User';
 import ImageProxy from '@server/lib/imageproxy';
 import { getSettings } from '@server/lib/settings';
 import logger from '@server/logger';
-import { getAppVersion } from '@server/utils/appVersion';
 import { getHostname } from '@server/utils/getHostname';
 import axios from 'axios';
 import { Router } from 'express';
@@ -27,7 +26,7 @@ async function initAvatarImageProxy() {
     const authToken = getSettings().jellyfin.apiKey;
     _avatarImageProxy = new ImageProxy('avatar', '', {
       headers: {
-        'X-Emby-Authorization': `MediaBrowser Client="Seerr", Device="Seerr", DeviceId="${deviceId}", Version="${getAppVersion()}", Token="${authToken}"`,
+        'X-Emby-Authorization': `MediaBrowser Client="Seerr", Device="Seerr", DeviceId="${deviceId}", Version="1.0.0", Token="${authToken}"`,
       },
     });
   }

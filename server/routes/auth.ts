@@ -12,7 +12,6 @@ import logger from '@server/logger';
 import { isAuthenticated } from '@server/middleware/auth';
 import { checkAvatarChanged } from '@server/routes/avatarproxy';
 import { ApiError } from '@server/types/error';
-import { getAppVersion } from '@server/utils/appVersion';
 import { getHostname } from '@server/utils/getHostname';
 import axios from 'axios';
 import { Router } from 'express';
@@ -671,7 +670,7 @@ authRoutes.post('/logout', async (req, res, next) => {
             await axios.delete(`${baseUrl}/Devices`, {
               params: { Id: user.jellyfinDeviceId },
               headers: {
-                'X-Emby-Authorization': `MediaBrowser Client="Seerr", Device="Seerr", DeviceId="seerr", Version="${getAppVersion()}", Token="${
+                'X-Emby-Authorization': `MediaBrowser Client="Seerr", Device="Seerr", DeviceId="seerr", Version="1.0.0", Token="${
                   settings.jellyfin.apiKey
                 }"`,
               },

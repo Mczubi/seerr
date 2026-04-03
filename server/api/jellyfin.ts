@@ -6,7 +6,6 @@ import availabilitySync from '@server/lib/availabilitySync';
 import { getSettings } from '@server/lib/settings';
 import logger from '@server/logger';
 import { ApiError } from '@server/types/error';
-import { getAppVersion } from '@server/utils/appVersion';
 
 export interface JellyfinUserResponse {
   Name: string;
@@ -138,11 +137,9 @@ class JellyfinAPI extends ExternalAPI {
         ? deviceId
         : Buffer.from('BOT_seerr').toString('base64');
 
-    let authHeaderVal: string;
+    let authHeaderVal = `MediaBrowser Client="Seerr", Device="Seerr", DeviceId="${safeDeviceId}", Version="1.0.0"`;
     if (authToken) {
-      authHeaderVal = `MediaBrowser Client="Seerr", Device="Seerr", DeviceId="${safeDeviceId}", Version="${getAppVersion()}", Token="${authToken}"`;
-    } else {
-      authHeaderVal = `MediaBrowser Client="Seerr", Device="Seerr", DeviceId="${safeDeviceId}", Version="${getAppVersion()}"`;
+      authHeaderVal += `, Token="${authToken}"`;
     }
 
     super(
